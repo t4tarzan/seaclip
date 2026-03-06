@@ -1,0 +1,23 @@
+{
+  "name": "seaclip",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev-runner.mjs dev",
+    "dev:server": "pnpm --filter @seaclip/server dev",
+    "dev:ui": "pnpm --filter @seaclip/ui dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "db:generate": "pnpm --filter @seaclip/db generate",
+    "db:migrate": "pnpm --filter @seaclip/db migrate",
+    "seaclip": "node cli/node_modules/tsx/dist/cli.mjs cli/src/index.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  },
+  "engines": { "node": ">=20" },
+  "packageManager": "pnpm@9.15.4"
+}

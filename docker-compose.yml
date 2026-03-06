@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: seaclip
+      POSTGRES_PASSWORD: seaclip
+      POSTGRES_DB: seaclip
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U seaclip -d seaclip"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  server:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3100:3100"
+    environment:
+      DATABASE_URL: postgres://seaclip:seaclip@db:5432/seaclip
+      PORT: "3100"
+      HOST: "0.0.0.0"
+      SERVE_UI: "true"
+      NODE_ENV: production
+      SEACLIP_STORAGE_DIR: /seaclip
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
+      TELEGRAM_BOT_TOKEN: "${TELEGRAM_BOT_TOKEN:-}"
+      TELEGRAM_CHAT_ID: "${TELEGRAM_CHAT_ID:-}"
+      SEACLIP_DEPLOYMENT_MODE: "${SEACLIP_DEPLOYMENT_MODE:-local_trusted}"
+      JWT_SECRET: "${JWT_SECRET:-change-me-in-production}"
+    volumes:
+      - seaclip-data:/seaclip
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  seaclip-data:
