@@ -58,6 +58,15 @@ export default function Dashboard() {
   const { data, isLoading } = useDashboard(companyId);
   const navigate = useNavigate();
 
+  if (!companyId) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full gap-4 text-slate-400">
+        <p className="text-lg font-medium">No company found</p>
+        <p className="text-sm">Add a company to get started.</p>
+      </div>
+    );
+  }
+
   if (isLoading) {
     return (
       <div className="p-6 space-y-6">
@@ -183,8 +192,8 @@ export default function Dashboard() {
           <div>
             <h3 className="text-[13px] font-semibold text-[#f9fafb]">Edge Mesh</h3>
             <p className="text-[11px] text-[#6b7280] mt-0.5">
-              {data?.edgeMiniMap.filter((d) => d.status === "online").length ?? 0} online ·{" "}
-              {data?.edgeMiniMap.filter((d) => d.status === "offline").length ?? 0} offline
+              {data?.edgeMiniMap?.filter((d) => d.status === "online").length ?? 0} online ·{" "}
+              {data?.edgeMiniMap?.filter((d) => d.status === "offline").length ?? 0} offline
             </p>
           </div>
           <button

@@ -64,6 +64,12 @@ export function MetricCard({
         onClick && "cursor-pointer hover:border-[#4b5563] hover:bg-[#263244]"
       )}
       onClick={onClick}
+      onKeyDown={onClick ? (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      } : undefined}
       role={onClick ? "button" : undefined}
       tabIndex={onClick ? 0 : undefined}
     >

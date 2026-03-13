@@ -50,6 +50,7 @@ function SeaClipLogo({ collapsed }: { collapsed: boolean }) {
         viewBox="0 0 32 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        role="img"
         aria-label="SeaClip logo"
         className="flex-shrink-0"
       >
@@ -186,6 +187,7 @@ export function Layout() {
             <div className="flex items-center gap-2">
               <Building2 size={13} className="text-[#6b7280] flex-shrink-0" />
               <select
+                aria-label="Select company"
                 value={company?.id ?? ""}
                 onChange={(e) => setCompanyId(e.target.value)}
                 className="flex-1 bg-transparent text-[11px] text-[#9ca3af] focus:outline-none cursor-pointer"
@@ -300,8 +302,10 @@ export function Layout() {
           {/* Header actions */}
           <div className="flex items-center gap-2">
             <button
-              className="relative p-1.5 rounded-lg text-[#6b7280] hover:text-[#f9fafb] hover:bg-[#1f2937] transition-colors"
-              aria-label="Notifications"
+              className="relative p-1.5 rounded-lg text-[#6b7280] transition-colors cursor-not-allowed opacity-50"
+              aria-label="Notifications (coming soon)"
+              aria-disabled="true"
+              disabled
             >
               <Bell size={16} />
               {pendingApprovals > 0 && (
@@ -320,22 +324,20 @@ export function Layout() {
         </main>
 
         {/* Mobile bottom nav */}
-        <nav className="md:hidden flex items-center justify-around h-14 bg-[#111827] border-t border-[#374151] flex-shrink-0">
+        <nav className="md:hidden flex items-center overflow-x-auto h-14 bg-[#111827] border-t border-[#374151] flex-shrink-0">
           {NAV_ITEMS.slice(0, 5).map((item) => {
             const Icon = item.icon;
-            const isActive =
-              item.end
-                ? location.pathname === item.to
-                : location.pathname.startsWith(item.to);
             return (
               <NavLink
                 key={item.to}
                 to={item.to}
                 end={item.end}
-                className={cn(
-                  "flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition-colors",
-                  isActive ? "text-[#06b6d4]" : "text-[#6b7280]"
-                )}
+                className={({ isActive }) =>
+                  cn(
+                    "flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition-colors flex-shrink-0",
+                    isActive ? "text-[#06b6d4]" : "text-[#6b7280]"
+                  )
+                }
               >
                 <Icon size={18} />
                 <span className="text-[9px] font-medium">{item.label}</span>

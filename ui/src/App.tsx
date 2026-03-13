@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "./context/ThemeContext";
 import { CompanyProvider } from "./context/CompanyContext";
 import { Layout } from "./components/Layout";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 // Pages (lazy would be ideal for prod, but direct imports for clarity)
 import Dashboard from "./pages/Dashboard";
@@ -35,7 +36,8 @@ export default function App() {
       <BrowserRouter>
         <ThemeProvider>
           <CompanyProvider>
-            <Routes>
+            <ErrorBoundary>
+              <Routes>
               <Route element={<Layout />}>
                 <Route index element={<Dashboard />} />
                 <Route path="agents" element={<Agents />} />
@@ -49,7 +51,8 @@ export default function App() {
                 <Route path="settings" element={<Settings />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>
-            </Routes>
+              </Routes>
+            </ErrorBoundary>
           </CompanyProvider>
         </ThemeProvider>
       </BrowserRouter>
