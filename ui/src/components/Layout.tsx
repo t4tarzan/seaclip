@@ -325,7 +325,7 @@ export function Layout() {
 
         {/* Mobile bottom nav */}
         <nav className="md:hidden flex items-center overflow-x-auto h-14 bg-[#111827] border-t border-[#374151] flex-shrink-0">
-          {NAV_ITEMS.map((item) => {
+          {NAV_ITEMS.slice(0, 5).map((item) => {
             const Icon = item.icon;
             return (
               <NavLink
