@@ -33,7 +33,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
             Something went wrong
           </p>
           <p className="text-[12px] text-[#6b7280]">
-            {this.state.error?.message ?? "An unexpected error occurred."}
+            {this.state.error?.message || "An unexpected error occurred."}
           </p>
           <button
             className="mt-4 text-[12px] text-[#20808D] hover:underline"
