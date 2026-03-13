@@ -302,10 +302,10 @@ export function Layout() {
           {/* Header actions */}
           <div className="flex items-center gap-2">
             <button
-              disabled
-              className="relative p-1.5 rounded-lg text-[#6b7280] hover:text-[#f9fafb] hover:bg-[#1f2937] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="relative p-1.5 rounded-lg text-[#6b7280] transition-colors cursor-not-allowed opacity-50"
               aria-label="Notifications (coming soon)"
-              title="Notifications (coming soon)"
+              aria-disabled="true"
+              disabled
             >
               <Bell size={16} />
               {pendingApprovals > 0 && (
@@ -325,7 +325,7 @@ export function Layout() {
 
         {/* Mobile bottom nav */}
         <nav className="md:hidden flex items-center overflow-x-auto h-14 bg-[#111827] border-t border-[#374151] flex-shrink-0">
-          {NAV_ITEMS.map((item) => {
+          {NAV_ITEMS.slice(0, 5).map((item) => {
             const Icon = item.icon;
             return (
               <NavLink
