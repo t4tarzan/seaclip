@@ -58,6 +58,15 @@ export default function Dashboard() {
   const { data, isLoading } = useDashboard(companyId);
   const navigate = useNavigate();
 
+  if (!companyId) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full gap-4 text-slate-400">
+        <p className="text-lg font-medium">No company found</p>
+        <p className="text-sm">Add a company to get started.</p>
+      </div>
+    );
+  }
+
   if (isLoading) {
     return (
       <div className="p-6 space-y-6">
