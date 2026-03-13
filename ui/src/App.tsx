@@ -37,7 +37,7 @@ export default function App() {
         <ThemeProvider>
           <CompanyProvider>
             <ErrorBoundary>
-            <Routes>
+              <Routes>
               <Route element={<Layout />}>
                 <Route index element={<Dashboard />} />
                 <Route path="agents" element={<Agents />} />
@@ -51,7 +51,7 @@ export default function App() {
                 <Route path="settings" element={<Settings />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>
-            </Routes>
+              </Routes>
             </ErrorBoundary>
           </CompanyProvider>
         </ThemeProvider>
